@@ -27,3 +27,36 @@
     chdir={{ drupal_core_path }}
   when: "'Successful' not in drupal_site_installed.stdout"
   become: no
+
+# Additions below this line made initially in the 'rootstalk' branch.
+
+- name: Set proper drupal path ownership.
+  file:
+    path: "{{ drupal_composer_install_dir }}"
+    state: directory
+    owner: "{{ vagrant_user }}"
+    group: "{{ drupal_group }}"
+    recurse: yes
+  become: yes
+
+# http://drupal.stackexchange.com/questions/200771/how-do-i-change-the-default-theme-with-drush-master
+- name: Set selected theme as default.
+  command: >
+    {{ drush_path }} -y config-set system.theme default {{ drupal_default_theme }}
+    chdir={{ drupal_core_path }}/sites/default
+  become: no
+
+# Check if {{ drupal_db_archive }} file exists.  See config.yml for the file path.
+- name: Checking if {{ drupal_db_archive }} exists.
+  stat: path={{ drupal_db_archive }}
+  register: restore_db
+
+# If {{ drupal_db_archive }} file exists, restore it using drush.
+# From the drupal web root (/var/www/drupalvm/drupal/web) use a command
+#   like "/usr/local/bin/drush archive-dump --destination=/var/www/drupalvm/rootstalk.dump --no-core --overwrite" to create the dump.
+- name: Restore previous drupal DB archive.
+  command: >
+    {{ drush_path }} -y archive-restore {{ drupal_db_archive }} default --destination={{ drupal_core_path }}
+    chdir={{ drupal_core_path }}/sites/default
+  when: restore_db.stat.exists == True
+  become: no

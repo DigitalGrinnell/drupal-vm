@@ -32,3 +32,8 @@ drupal_enable_modules:
 drupal_default_theme: bootstrap
 
 drupal_db_archive: "/var/www/drupalvm/none.dump"
+
+# Additions below this line made initially in the 'rootstalk' branch.
+
+drupal_composer_install_dir: "/var/www/drupal"
+drupal_site_name: "Rootstalk"
