@@ -6,7 +6,7 @@ Need to make changes in this .md to reflect the use of CentOS 7, not Ubuntu, as 
 ~~~~
 
 ~~~~
-Note that this is the 'master' branch of https://github.com/DigitalGrinnell/drupal-vm.
+Note that this is the 'rootstalk' branch of https://github.com/DigitalGrinnell/drupal-vm.
 Please make additional branches in order to introduce changes specific to other uses.
 Do NOT modify this repository without careful consideration!
 ~~~~
