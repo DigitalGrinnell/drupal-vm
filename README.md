@@ -1,5 +1,16 @@
 ![Drupal VM Logo](https://raw.githubusercontent.com/geerlingguy/drupal-vm/master/docs/images/drupal-vm-logo.png)
 
+~~~~
+@TODO
+Need to make changes in this .md to reflect the use of CentOS 7, not Ubuntu, as well as the guest site (drupal8.dev) and other customizations.
+~~~~
+
+~~~~
+Note that this is the 'master' branch of https://github.com/DigitalGrinnell/drupal-vm.
+Please make additional branches in order to introduce changes specific to other uses.
+Do NOT modify this repository without careful consideration!
+~~~~
+
 [![Build Status](https://travis-ci.org/geerlingguy/drupal-vm.svg?branch=master)](https://travis-ci.org/geerlingguy/drupal-vm) [![Documentation Status](https://readthedocs.org/projects/drupal-vm/badge/?version=latest)](http://docs.drupalvm.com) [![Packagist](https://img.shields.io/packagist/v/geerlingguy/drupal-vm.svg)](https://packagist.org/packages/geerlingguy/drupal-vm)
 
 [Drupal VM](https://www.drupalvm.com/) is A VM for local Drupal development, built with Vagrant + Ansible.
