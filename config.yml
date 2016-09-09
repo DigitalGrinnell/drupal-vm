@@ -1,0 +1,34 @@
+---
+vagrant_box: geerlingguy/centos7
+vagrant_synced_folder_default_type: rsync
+vagrant_hostname: drupal8.dev
+vagrant_machine_name: drupal8
+vagrant_ip: 192.168.8.8
+vagrant_synced_folders:
+  # The first synced folder will be used for the default Drupal installation, if
+  # any of the build_* settings are 'true'. By default the folder is set to
+  # the drupal-vm folder.
+  - local_path: .
+    destination: /var/www/drupalvm
+    type: rsync
+    create: true
+
+extra_packages:
+  - sqlite
+  - nano
+  - figlet
+
+# Adjust the following for the selected OS!
+drupal_group: apache
+
+drupal_composer_dependencies:
+  - "drupal/devel:8.*"
+  - "drupal/bootstrap:8.*"
+
+drupal_enable_modules:
+  - bootstrap
+  - devel
+
+drupal_default_theme: bootstrap
+
+drupal_db_archive: "/var/www/drupalvm/none.dump"
