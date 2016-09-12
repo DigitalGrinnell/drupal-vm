@@ -1,9 +1,11 @@
 ---
 vagrant_box: geerlingguy/centos7
 vagrant_synced_folder_default_type: rsync
-vagrant_hostname: drupal8.dev
-vagrant_machine_name: drupal8
-vagrant_ip: 192.168.8.8
+vagrant_hostname: rootstalk.dev
+vagrant_machine_name: rootstalk
+# Setting vagrant_ip to 0.0.0.0 implies that the auto_network plugin is installed.
+# See Quick Start item 3 in https://github.com/geerlingguy/drupal-vm/blob/master/README.md.
+# vagrant_ip: 0.0.0.0
 vagrant_synced_folders:
   # The first synced folder will be used for the default Drupal installation, if
   # any of the build_* settings are 'true'. By default the folder is set to
