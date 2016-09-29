@@ -175,7 +175,7 @@ mysql_users:
 installed_extras:
   - adminer
   # - blackfire
-  - drupalconsole
+  # - drupalconsole     MAM removed this since it causes my provisioning to hang in the init task.
   # - elasticsearch
   - mailhog
   # - memcached
