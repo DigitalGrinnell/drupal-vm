@@ -24,8 +24,8 @@ extra_packages:
 drupal_group: apache
 
 drupal_composer_dependencies:
-  - "drupal/devel:8.*"
-  - "drupal/bootstrap:8.*"
+  - "drupal/devel:*"
+  - "drupal/bootstrap:*"
 
 drupal_enable_modules:
   - bootstrap

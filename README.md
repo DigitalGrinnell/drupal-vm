@@ -2,14 +2,65 @@
 
 ~~~~
 @TODO
-Need to make changes in this .md to reflect the use of CentOS 7, not Ubuntu, as well as the guest site (drupal8.dev) and other customizations.
+Need to make changes in this .md to reflect the use of CentOS 7, not 
+Ubuntu, as well as the guest site (drupal8.dev) and other 
+customizations.
 ~~~~
 
 ~~~~
-Note that this is the 'rootstalk' branch of https://github.com/DigitalGrinnell/drupal-vm.
-Please make additional branches in order to introduce changes specific to other uses.
+Note that this is the 'rootstalk' branch of 
+https://github.com/DigitalGrinnell/drupal-vm.
+Please make additional branches in order to introduce changes specific 
+to other uses.
 Do NOT modify this repository without careful consideration!
 ~~~~
+
+~~~~
+Mac installation instructions follow...
+On your iMac or MacBook please install fresh copies of VirtualBox, 
+‘vagrant’, and ‘git', unless you already have these.  You can find 
+VirtualBox download and install instructions at 
+https://www.virtualbox.org/wiki/Downloads, and be sure to download the 
+VirtualBox Extension Pack too.  Visit https://www.vagrantup.com/ for 
+download and setup of ‘vagrant’.  Visit https://git-scm.com/download/mac 
+for instructions to download and install ‘git’ on your MacBook.  
+Once vagrant is working you will want to install four plugins to help.  
+You can install them from a command-line terminal on your Mac using 
+these four commands:
+
+vagrant plugin install vagrant-auto_network
+vagrant plugin install vagrant-hostsupdater
+vagrant plugin install vagrant-share
+vagrant plugin install vagrant-vbguest
+
+If you’re able to complete all three installations you’ll be ready for 
+the next step, cloning our code for your future work.  You can do that 
+by following these simple command-line steps…
+
+Launch a terminal window on your MacBook.
+Inside the terminal execute the following commands…
+cd ~ [This ensures that you working from your home/user directory.]
+mkdir DGProjects
+[This will create a new directory named ‘DGProjects’ in your home/user 
+directory.  You can actually name it anything you like, but remember 
+the name.]
+cd DGProjects  [If you use a different directory name above, be sure 
+to use the same name here.  This changes your working directory to the 
+new one you just created.]
+git clone -b "rootstalk" 
+  https://github.com/DigitalGrinnell/drupal-vm.git "drupal-vm-rootstalk”     
+  [This will ‘clone’ our current work to your MacBook in a directory named ‘drupal-vm-rootstalk’.]
+cd drupal-vm-rootstalk
+  [Change your working directory to the new ‘drupal-vm-rootstalk’.]
+vagrant up
+
+The ‘vagrant up’ command should take care of creating a new VirtualBox 
+VM (virtual machine) ‘guest’ on your MacBook ‘host’.  If may take 15-20 
+minutes the first time you do this.  If it is successful you will be 
+able to open a browser on your MacBook and successfully navigate to 
+addresses http://dashboard.rootstalk.dev and http://rootstalk.dev.  
+~~~~
+
 
 [![Build Status](https://travis-ci.org/geerlingguy/drupal-vm.svg?branch=master)](https://travis-ci.org/geerlingguy/drupal-vm) [![Documentation Status](https://readthedocs.org/projects/drupal-vm/badge/?version=latest)](http://docs.drupalvm.com) [![Packagist](https://img.shields.io/packagist/v/geerlingguy/drupal-vm.svg)](https://packagist.org/packages/geerlingguy/drupal-vm)
 
