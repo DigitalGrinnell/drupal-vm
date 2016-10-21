@@ -27,11 +27,13 @@ drupal_composer_dependencies:
   - "drupal/devel:*"
   - "drupal/bootstrap:*"
   - "drupal/pdf:*"
+  - "drupal/pathauto:*"
 
 drupal_enable_modules:
   - bootstrap
   - devel
   - pdf
+  - pathauto
 
 drupal_default_theme: bootstrap
 
