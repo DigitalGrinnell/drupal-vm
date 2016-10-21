@@ -1,6 +1,6 @@
 ---
 vagrant_box: geerlingguy/centos7
-vagrant_synced_folder_default_type: rsync
+vagrant_synced_folder_default_type: nfs
 vagrant_hostname: rootstalk.dev
 vagrant_machine_name: rootstalk
 # Setting vagrant_ip to 0.0.0.0 implies that the auto_network plugin is installed.
@@ -12,7 +12,7 @@ vagrant_synced_folders:
   # the drupal-vm folder.
   - local_path: .
     destination: /var/www/drupalvm
-    type: rsync
+    type: nfs
     create: true
 
 extra_packages:
@@ -26,14 +26,16 @@ drupal_group: apache
 drupal_composer_dependencies:
   - "drupal/devel:*"
   - "drupal/bootstrap:*"
+  - "drupal/pdf:*"
 
 drupal_enable_modules:
   - bootstrap
   - devel
+  - pdf
 
 drupal_default_theme: bootstrap
 
-drupal_db_archive: "/var/www/drupalvm/none.dump"
+drupal_db_archive: "/var/www/drupalvm/rootstalk.tar.gz"
 
 # Additions below this line made initially in the 'rootstalk' branch.
 
