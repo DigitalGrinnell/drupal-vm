@@ -53,10 +53,21 @@
 
 # If {{ drupal_db_archive }} file exists, restore it using drush.
 # From the drupal web root (/var/www/drupalvm/drupal/web) use a command
-#   like "/usr/local/bin/drush archive-dump --destination=/var/www/drupalvm/rootstalk.dump --no-core --overwrite" to create the dump.
+#   like "drush archive-dump --destination=/var/www/drupalvm/rootstalk.tar.gz --no-core --overwrite" to create the dump.
 - name: Restore previous drupal DB archive.
   command: >
-    {{ drush_path }} -y archive-restore {{ drupal_db_archive }} default --destination={{ drupal_core_path }}
-    chdir={{ drupal_core_path }}/sites/default
+    {{ drush_path }} -y archive-restore {{ drupal_db_archive }} default --tar-options='vz'--destination={{ drupal_core_path }}
   when: restore_db.stat.exists == True
-  become: no
+  become: yes
+
+# Check for pdf.js
+- stat: path={{ drupal_core_path }}/libraries/pdf.js
+  register: pdfjs_dist
+
+# Fetch the pdf.js pre-built distribution
+- name: Fetch pdf.js distribution
+  git:
+    repo: "https://github.com/mozilla/pdfjs-dist.git"
+    dest: "{{ drupal_core_path }}/libraries"
+    update: yes
+  when: pdfjs_dist.stat.exists == False
