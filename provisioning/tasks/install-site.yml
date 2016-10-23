@@ -30,6 +30,7 @@
 
 # Additions below this line made initially in the 'rootstalk' branch.
 
+# Set drupal path file ownership.
 - name: Set proper drupal path ownership.
   file:
     path: "{{ drupal_composer_install_dir }}"
@@ -52,11 +53,11 @@
   register: restore_db
 
 # If {{ drupal_db_archive }} file exists, restore it using drush.
-# From the drupal web root (/var/www/drupalvm/drupal/web) use a command
-#   like "drush archive-dump --destination=/var/www/drupalvm/rootstalk.tar.gz --no-core --overwrite" to create the dump.
+# From your HOST, use rootstalk_create_backup (defined in backup_and_restore.sh) to create an archive dump.
 - name: Restore previous drupal DB archive.
   command: >
-    {{ drush_path }} -y archive-restore {{ drupal_db_archive }} default --tar-options='vz'--destination={{ drupal_core_path }}
+    {{ drush_path }} -u 1 -y arr {{ drupal_db_archive }} default --tar-options='vz' --overwrite
+    chdir={{ drupal_core_path }}/..
   when: restore_db.stat.exists == True
   become: yes
 
@@ -68,6 +69,25 @@
 - name: Fetch pdf.js distribution
   git:
     repo: "https://github.com/mozilla/pdfjs-dist.git"
-    dest: "{{ drupal_core_path }}/libraries"
+    dest: "{{ drupal_core_path }}/libraries/pdf.js"
     update: yes
   when: pdfjs_dist.stat.exists == False
+
+# Set file permissions in the additions.
+- name: Set proper files ownership in the additions.
+  file:
+    path: "{{ drupal_core_path }}"
+    state: directory
+    owner: "{{ vagrant_user }}"
+    group: "{{ drupal_group }}"
+    recurse: yes
+  become: yes
+
+# Flush the cache if the DB was restored from backup!
+- name: Flush the cache.
+  command: >
+    {{ drush_path }} -u 1 -y cr all
+    chdir={{ drupal_core_path }}/sites/default
+  when: restore_db.stat.exists == True
+  become: yes
+
