@@ -28,12 +28,16 @@ drupal_composer_dependencies:
   - "drupal/bootstrap:*"
   - "drupal/pdf:*"
   - "drupal/pathauto:*"
+  - "drupal/calendar:*"
+  - "drupal/views_templates:*"
 
 drupal_enable_modules:
   - bootstrap
   - devel
   - pdf
   - pathauto
+  - calendar
+  - views_templates
 
 drupal_default_theme: bootstrap
 
