@@ -1,7 +1,8 @@
 ---
 vagrant_box: geerlingguy/centos7
 vagrant_synced_folder_default_type: nfs
-vagrant_hostname: rootstalk.dev
+# vagrant_hostname: rootstalk.dev
+vagrant_hostname: rootstalk.grinnell.edu
 vagrant_machine_name: rootstalk
 # Setting vagrant_ip to 0.0.0.0 implies that the auto_network plugin is installed.
 # See Quick Start item 3 in https://github.com/geerlingguy/drupal-vm/blob/master/README.md.
@@ -30,6 +31,8 @@ drupal_composer_dependencies:
   - "drupal/pathauto:*"
   - "drupal/calendar:*"
   - "drupal/views_templates:*"
+  - "drupal/google_analytics:*"
+  - "drupal/google_analytics_reports:*"
 
 drupal_enable_modules:
   - bootstrap
@@ -38,6 +41,8 @@ drupal_enable_modules:
   - pathauto
   - calendar
   - views_templates
+  - google_analytics
+  - google_analytics_reports
 
 drupal_default_theme: bootstrap
 
