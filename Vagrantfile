@@ -1,7 +1,6 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 VAGRANTFILE_API_VERSION = '2' unless defined? VAGRANTFILE_API_VERSION
-Vagrant.require_version '>= 1.8.1'
 
 # Absolute paths on the host machine.
 host_drupalvm_dir = File.dirname(File.expand_path(__FILE__))
@@ -52,6 +51,8 @@ vconfig = walk(vconfig) do |value|
   end
   value
 end
+
+Vagrant.require_version ">= #{vconfig['drupalvm_vagrant_version_min']}"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Networking configuration.
@@ -107,7 +108,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       rsync__args: ['--verbose', '--archive', '--delete', '-z', '--chmod=ugo=rwX'],
       id: synced_folder['id'],
       create: synced_folder.include?('create') ? synced_folder['create'] : false,
-      mount_options: synced_folder.include?('mount_options') ? synced_folder['mount_options'] : nil
+      mount_options: synced_folder.include?('mount_options') ? synced_folder['mount_options'] : []
     }
     if synced_folder.include?('options_override')
       options = options.merge(synced_folder['options_override'])
@@ -174,6 +175,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.cache.enable :apt
     # Cache the composer directory.
     config.cache.enable :generic, cache_dir: '/home/vagrant/.composer/cache'
+    config.cache.synced_folder_opts = {
+      type: vconfig.include?('vagrant_synced_folder_default_type') ? vconfig['vagrant_synced_folder_default_type'] : 'nfs'
+    }
   end
 
   # Allow an untracked Vagrantfile to modify the configurations
