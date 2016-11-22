@@ -191,7 +191,8 @@ postgresql_users:
 installed_extras:
   - adminer
   # - blackfire
-  # - drupalconsole     MAM removed this since it causes my provisioning to hang in the init task.
+  - drupalconsole
+  - drush
   # - elasticsearch
   # - java
   - mailhog
