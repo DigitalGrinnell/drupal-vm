@@ -33,6 +33,8 @@ drupal_composer_dependencies:
   - "drupal/views_templates:*"
   - "drupal/google_analytics:*"
   - "drupal/google_analytics_reports:*"
+  - "drupal/embed:*"
+  - "drupal/entity_embed:*"
 
 drupal_enable_modules:
   - bootstrap
@@ -43,6 +45,8 @@ drupal_enable_modules:
   - views_templates
   - google_analytics
   - google_analytics_reports
+  - embed
+  - entity_embed
 
 drupal_default_theme: bootstrap
 
