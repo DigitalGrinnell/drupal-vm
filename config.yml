@@ -35,6 +35,8 @@ drupal_composer_dependencies:
   - "drupal/google_analytics_reports:*"
   - "drupal/embed:*"
   - "drupal/entity_embed:*"
+  - "drupal/taxonomy_menu:*"
+  - "drupal/video_embed_field:*"
 
 drupal_enable_modules:
   - bootstrap
@@ -47,6 +49,8 @@ drupal_enable_modules:
   - google_analytics_reports
   - embed
   - entity_embed
+  - taxonomy_menu
+  - video_embed_field
 
 drupal_default_theme: bootstrap
 
