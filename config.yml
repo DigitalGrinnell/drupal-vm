@@ -37,6 +37,7 @@ drupal_composer_dependencies:
   - "drupal/entity_embed:*"
   - "drupal/taxonomy_menu:*"
   - "drupal/video_embed_field:*"
+  - "drupal/blog:*"
 
 drupal_enable_modules:
   - bootstrap
@@ -51,6 +52,7 @@ drupal_enable_modules:
   - entity_embed
   - taxonomy_menu
   - video_embed_field
+  - blog
 
 drupal_default_theme: bootstrap
 
