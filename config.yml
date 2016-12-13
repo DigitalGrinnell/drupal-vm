@@ -38,6 +38,8 @@ drupal_composer_dependencies:
   - "drupal/taxonomy_menu:*"
   - "drupal/video_embed_field:*"
   - "drupal/blog:*"
+  - "drupal/ldap:*"
+  - "drupal/authorization:*"
 
 drupal_enable_modules:
   - bootstrap
@@ -53,6 +55,8 @@ drupal_enable_modules:
   - taxonomy_menu
   - video_embed_field
   - blog
+  - ldap
+  - authorization
 
 drupal_default_theme: bootstrap
 
