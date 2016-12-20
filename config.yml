@@ -1,5 +1,7 @@
 ---
-vagrant_box: geerlingguy/centos7
+# Line below commented out so that default box, Ubuntu 16.04, is used.
+# vagrant_box: geerlingguy/centos7
+
 vagrant_synced_folder_default_type: nfs
 # vagrant_hostname: rootstalk.dev
 vagrant_hostname: rootstalk.grinnell.edu
@@ -22,7 +24,8 @@ extra_packages:
   - figlet
 
 # Adjust the following for the selected OS!
-drupal_group: apache
+# drupal_group: apache   # Commented out per OS change above.
+drupal_group: www-data
 
 drupal_composer_dependencies:
   - "drupal/devel:*"

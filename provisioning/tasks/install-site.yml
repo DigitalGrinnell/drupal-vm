@@ -31,12 +31,12 @@
   when: "'Successful' not in drupal_site_installed.stdout"
   become: no
 
-- name: Install configured modules with drush.
-  command: >
-    {{ drush_path }} pm-enable -y {{ drupal_enable_modules | join(" ") }}
-    chdir={{ drupal_core_path }}
-  when: "'Successful' not in drupal_site_installed.stdout"
-  become: no
+#- name: Install configured modules with drush.
+#  command: >
+#    {{ drush_path }} pm-enable -y {{ drupal_enable_modules | join(" ") }}
+#    chdir={{ drupal_core_path }}
+#  when: "'Successful' not in drupal_site_installed.stdout"
+#  become: no
 
 # Additions below this line made initially in the 'rootstalk' branch.
 
