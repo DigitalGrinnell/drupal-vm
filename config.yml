@@ -1,30 +1,44 @@
 ---
-# Line below commented out so that default box, Ubuntu 16.04, is used.
-# vagrant_box: geerlingguy/centos7
+vagrant_user: dguser
+# Set to the hostname of the server.
+drupal_domain: "rootstalk.grinnell.edu"
 
-vagrant_synced_folder_default_type: nfs
-# vagrant_hostname: rootstalk.dev
-vagrant_hostname: rootstalk.grinnell.edu
-vagrant_machine_name: rootstalk
-# Setting vagrant_ip to 0.0.0.0 implies that the auto_network plugin is installed.
-# See Quick Start item 3 in https://github.com/geerlingguy/drupal-vm/blob/master/README.md.
-# vagrant_ip: 0.0.0.0
-vagrant_synced_folders:
-  # The first synced folder will be used for the default Drupal installation, if
-  # any of the build_* settings are 'true'. By default the folder is set to
-  # the drupal-vm folder.
-  - local_path: .
-    destination: /var/www/drupalvm
-    type: nfs
-    create: true
+# Add only the `apache_vhosts` or `nginx_hosts` you need. If installing a
+# single Drupal site, the variable should look like this (Apache):
+apache_vhosts:
+  - servername: "{{ drupal_domain }}"
+    documentroot: "{{ drupal_core_path }}"
+    extra_parameters: |
+          ProxyPassMatch ^/(.*\.php(/.*)?)$ "fcgi://127.0.0.1:9000{{ drupal_core_path }}"
 
-extra_packages:
-  - sqlite
-  - nano
-  - figlet
+# Only install extras that you will need/use on your site, and don't install
+# development-related software on production environments!
+installed_extras:
+  - drush
+  # - memcached
+  # - redis
+  # - solr
+  # - varnish
+
+# Disable the dashboard page. Also remove any unneeded virtualhosts.
+dashboard_install_dir: ''
+
+# Enable a more hardened security configuration.
+extra_security_enabled: true
+
+# Restrict the firewall to only ports that are required for external services.
+firewall_allowed_tcp_ports:
+  - "22"
+  - "80"
+  - "443"
+firewall_log_dropped_packets: true
+
+# Set Apache to listen on port 81 (internal only), and Varnish on 80.
+apache_listen_port: "81"
+varnish_listen_port: "80"
+varnish_default_backend_port: "81"
 
 # Adjust the following for the selected OS!
-# drupal_group: apache   # Commented out per OS change above.
 drupal_group: www-data
 
 drupal_composer_dependencies:
@@ -63,9 +77,10 @@ drupal_enable_modules:
 
 drupal_default_theme: bootstrap
 
-drupal_db_archive: "/var/www/drupalvm/rootstalk.tar.gz"
+drupal_db_archive: "/tmp/rootstalk.tar.gz"
 
-# Additions below this line made initially in the 'rootstalk' branch.
-
-drupal_composer_install_dir: "/var/www/drupal"
+drupal_composer_install_dir: "/var/www/html/drupal"
 drupal_site_name: "Rootstalk"
+
+build_composer_project: true
+
