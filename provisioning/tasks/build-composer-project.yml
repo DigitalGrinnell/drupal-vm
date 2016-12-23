@@ -19,7 +19,7 @@
   environment:
       COMPOSER_PROCESS_TIMEOUT: 1200
 
-- name: Install dependencies with composer require.
+- name: Install 'project' dependencies with composer require.
   command: >
     {{ composer_path }} require {{ item }}
     chdir={{ drupal_composer_install_dir }}

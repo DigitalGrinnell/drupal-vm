@@ -1,12 +1,21 @@
 # Use rootstalk_create_backup from your HOST machine to backup a copy of the existing default database and files.
-alias vm_create_backup="ssh vagrant@rootstalk.grinnell.edu \"cd /var/www/drupal/web/sites/default;drush ard default --no-core --destination='./rootstalk.tar.gz' --overwrite\""  
-alias rsync_file_message="printf \"Transfering backup to '/Volumes/RS' directory on your local machine: \n\""
-alias backup_complete_message="printf \"File backup complete!!! These are the contents of the flash drive...\n\""
-alias vm_pull_to_RS="rsync_file_message;rsync root@rootstalk.grinnell.edu:/var/www/drupal/web/rootstalk.tar.gz /Volumes/RS/;backup_complete_message;ls /Volumes/RS;"
-alias vm_save_to_shared="ssh root@rootstalk.grinnell.edu \"cp /var/www/drupal/web/rootstalk.tar.gz /var/www/drupalvm\""
-alias rootstalk_vm_backup="vm_create_backup;vm_save_to_shared;vm_pull_to_RS"
+alias vm_create_backup="ssh dguser@rootstalk.grinnell.edu \"drush @drupalvm ard default --yes --no-core --destination='/tmp/rootstalk.tar.gz' --overwrite\""  
+alias rsync_file_message1="printf \"Transfering backup to the current directory on the host (your local machine)... \n\""
+alias rsync_file_message2="printf \"Transfering backup to '/Volumes/ROOTSTALK' directory on your local machine... \n\""
+alias no_ROOTSTALK_device="printf \"Attention: Mount a USB stick named ROOTSTALK if you wish to backup to a device. \n\""
+alias backup_complete_message="printf \"File backup complete!!! The contents of the flash drive include: \n\""
+alias vm_pull_to_host1="rsync_file_message1; rsync -aruvi dguser@rootstalk.grinnell.edu:/tmp/rootstalk.tar.gz . "
+alias vm_pull_to_host2="rsync_file_message2; rsync -aruvi ./rootstalk.tar.gz /Volumes/ROOTSTALK/; backup_complete_message; ls /Volumes/ROOTSTALK;"
+alias rootstalk_vm_backup="
+  vm_create_backup; 
+  vm_pull_to_host1; 
+  if [ -d \"/Volumes/ROOTSTALK\" ]; then
+    vm_pull_to_host2
+  else
+    no_ROOTSTALK_device
+  fi"
 
 # Use rootstalk_vm_restore from your HOST machine to restore a copy fo the default database and files.
-alias vm_push_to_vm="rsync ./rootstalk.tar.gz vagrant@rootstalk.grinnell.edu:/var/www/drupal/web/"
-alias vm_restore_backup="ssh root@rootstalk.grinnell.edu \"cd /var/www/drupal; drush arr -v web/rootstalk.tar.gz default --overwrite --tar-options='vz';cd web/sites/default; drush cr all\""
-alias rootstalk_vm_restore="vm_push_to_vm;vm_restore_backup"
+alias vm_push_to_vm="rsync -aruvi ./rootstalk.tar.gz dguser@dgdevx.grinnell.edu:/var/www/html/drupal/"
+alias vm_restore_backup="ssh dguser@rootstalk.grinnell.edu \"cd /var/www/html/drupal; drush arr -v rootstalk.tar.gz default --overwrite --tar-options='vz'; cd web/sites/default; drush cr all\""
+alias rootstalk_vm_restore="vm_push_to_vm; vm_restore_backup"
