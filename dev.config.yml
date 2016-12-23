@@ -1,0 +1,75 @@
+---
+# Line below commented out so that default box, Ubuntu 16.04, is used.
+# vagrant_box: geerlingguy/centos7
+
+vagrant_synced_folder_default_type: nfs
+# vagrant_hostname: rootstalk.dev
+vagrant_hostname: rootstalk.grinnell.edu
+vagrant_machine_name: rootstalk
+# Setting vagrant_ip to 0.0.0.0 implies that the auto_network plugin is installed.
+# See Quick Start item 3 in https://github.com/geerlingguy/drupal-vm/blob/master/README.md.
+# vagrant_ip: 0.0.0.0
+vagrant_synced_folders:
+  # The first synced folder will be used for the default Drupal installation, if
+  # any of the build_* settings are 'true'. By default the folder is set to
+  # the drupal-vm folder.  Changing 'nfs' below to 'rsync' for production roll-out.
+  - local_path: .
+    destination: /var/www/drupalvm
+    type: rsync
+    create: true
+
+extra_packages:
+  - sqlite
+  - nano
+  - figlet
+
+# Adjust the following for the selected OS!
+# drupal_group: apache   # Commented out per OS change above.
+drupal_group: www-data
+
+drupal_composer_dependencies:
+  - "drupal/devel:*"
+  - "drupal/bootstrap:*"
+  - "drupal/pdf:*"
+  - "drupal/pathauto:*"
+  - "drupal/calendar:*"
+  - "drupal/views_templates:*"
+  - "drupal/google_analytics:*"
+  - "drupal/google_analytics_reports:*"
+  - "drupal/embed:*"
+  - "drupal/entity_embed:*"
+  - "drupal/taxonomy_menu:*"
+  - "drupal/video_embed_field:*"
+  - "drupal/blog:*"
+  - "drupal/ldap:*"
+  - "drupal/authorization:*"
+
+drupal_enable_modules:
+  - bootstrap
+  - devel
+  - pdf
+  - pathauto
+  - calendar
+  - views_templates
+  - google_analytics
+  - google_analytics_reports
+  - embed
+  - entity_embed
+  - taxonomy_menu
+  - video_embed_field
+  - blog
+  - ldap
+  - authorization
+
+drupal_default_theme: bootstrap
+
+drupal_db_archive: "/var/www/drupalvm/rootstalk.tar.gz"
+
+drupal_composer_install_dir: "/var/www/html/drupal"
+drupal_site_name: "Rootstalk"
+drupal_account_name: admin
+drupal_account_pass: Grinne!!@dmin
+drupal_db_user: drupal
+drupal_db_password: Grinne!!drup@!l
+drupal_db_name: drupal
+mysql_root_password: Grinne!!r00t
