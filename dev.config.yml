@@ -67,9 +67,4 @@ drupal_db_archive: "/var/www/drupalvm/rootstalk.tar.gz"
 
 drupal_composer_install_dir: "/var/www/html/drupal"
 drupal_site_name: "Rootstalk"
-drupal_account_name: admin
-drupal_account_pass: Grinne!!@dmin
-drupal_db_user: drupal
-drupal_db_password: Grinne!!drup@!l
-drupal_db_name: drupal
-mysql_root_password: Grinne!!r00t
+
