@@ -4,7 +4,7 @@
 
 vagrant_synced_folder_default_type: nfs
 # vagrant_hostname: rootstalk.dev
-vagrant_hostname: rootstalk.grinnell.edu
+vagrant_hostname: rootstalk.grinnell.dev
 vagrant_machine_name: rootstalk
 # Setting vagrant_ip to 0.0.0.0 implies that the auto_network plugin is installed.
 # See Quick Start item 3 in https://github.com/geerlingguy/drupal-vm/blob/master/README.md.
@@ -43,6 +43,12 @@ drupal_composer_dependencies:
   - "drupal/blog:*"
   - "drupal/ldap:*"
   - "drupal/authorization:*"
+  - "drupal/ldap_sso"
+  - "drupal/swiftmailer"
+  - "drupal/mailsystem"
+  - "swiftmailer/swiftmailer"
+  - "drupal/entity_clone"
+  - "drupal/webform"
 
 drupal_enable_modules:
   - bootstrap
@@ -60,6 +66,11 @@ drupal_enable_modules:
   - blog
   - ldap
   - authorization
+  - ldap_sso
+  - swiftmailer
+  - mailsystem
+  - entity_clone
+  - webform
 
 drupal_default_theme: bootstrap
 

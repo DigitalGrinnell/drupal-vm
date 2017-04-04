@@ -41,14 +41,14 @@
 # Additions below this line made initially in the 'rootstalk' branch.
 
 # Set drupal path file ownership.
-- name: Set proper drupal path ownership.
-  file:
-    path: "{{ drupal_composer_install_dir }}"
-    state: directory
-    owner: "{{ vagrant_user }}"
-    group: "{{ drupal_group }}"
-    recurse: yes
-  become: yes
+#- name: Set proper drupal path ownership.
+#  file:
+#    path: "{{ drupal_composer_install_dir }}"
+#    state: directory
+#    owner: "{{ vagrant_user }}"
+#    group: "{{ drupal_group }}"
+#   recurse: yes
+#  become: yes
 
 # http://drupal.stackexchange.com/questions/200771/how-do-i-change-the-default-theme-with-drush-master
 - name: Set selected theme as default.
@@ -84,14 +84,15 @@
   when: pdfjs_dist.stat.exists == False
 
 # Set file permissions in the additions.
-- name: Set proper files ownership in the additions.
-  file:
-    path: "{{ drupal_core_path }}"
-    state: directory
-    owner: "{{ vagrant_user }}"
-    group: "{{ drupal_group }}"
-    recurse: yes
-  become: yes
+#- name: Set proper files ownership in the additions.
+ # file:
+#    path: "{{ drupal_core_path }}"
+#    state: directory
+#    owner: "{{ vagrant_user }}"
+#    group: "{{ drupal_group }}"
+# iftmailer"        
+#  - "drupal/m    recurse: yes
+#  become: yes
 
 # Flush the cache if the DB was restored from backup!
 - name: Flush the cache.
